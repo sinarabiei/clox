@@ -1,8 +1,8 @@
 CC := gcc
 CFLAGS := -Wall
 
-SRC := src/chunk.o src/memory.o src/debug.o src/value.o
-TESTS :=
+SRC := src/chunk.o src/memory.o src/debug.o src/value.o src/line.o
+TESTS := tests/line.o tests/chunk.o
 
 clox: src/main.o $(SRC)
 	$(CC) -o clox src/main.o $(SRC) $(CFLAGS)
@@ -21,6 +21,9 @@ src/debug.o: src/debug.c
 src/value.o: src/value.c
 	$(CC) -c -o src/value.o src/value.c $(CFLAGS)
 
+src/line.o: src/line.c
+	$(CC) -c -o src/line.o src/line.c $(CFLAGS)
+
 .PHONY: run
 run: clox
 	./clox
@@ -29,6 +32,12 @@ runtests: tests/runtests.o $(SRC) $(TESTS)
 	$(CC) -o runtests tests/runtests.o $(SRC) $(TESTS) $(CFLAGS)
 tests/runtests.o: tests/runtests.c
 	$(CC) -c -o tests/runtests.o tests/runtests.c $(CFLAGS)
+
+tests/line.o: tests/line.c
+	$(CC) -c -o tests/line.o tests/line.c $(CFLAGS)
+
+tests/chunk.o: tests/chunk.c
+	$(CC) -c -o tests/chunk.o tests/chunk.c $(CFLAGS)
 
 .PHONY: test
 test: runtests

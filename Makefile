@@ -1,7 +1,7 @@
 CC := gcc
 CFLAGS := -Wall
 
-SRC := src/chunk.o src/memory.o src/debug.o src/value.o src/emulate.o
+SRC := src/chunk.o src/memory.o src/debug.o src/value.o src/emulate.o src/compiler.o src/scanner.o
 TESTS :=
 
 clox: src/main.o $(SRC)
@@ -23,6 +23,12 @@ src/value.o: src/value.c
 
 src/emulate.o: src/emulate.c
 	$(CC) -c -o src/emulate.o src/emulate.c $(CFLAGS)
+
+src/compiler.o: src/compiler.c
+	$(CC) -c -o src/compiler.o src/compiler.c $(CFLAGS)
+
+src/scanner.o: src/scanner.c
+	$(CC) -c -o src/scanner.o src/scanner.c $(CFLAGS)
 
 .PHONY: run
 run: clox
